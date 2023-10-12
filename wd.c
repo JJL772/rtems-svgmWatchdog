@@ -75,7 +75,12 @@
 #elif defined(__rtems__)
 
 #define	rpcInit()			do {} while(0)
+
+#ifdef HAVE_LIBBSD
+#define rpcTaskInit()
+#else
 #define rpcTaskInit()		rtems_rpc_task_init()
+#endif
 
 #ifndef sysReset
 #define sysReset			wdSysReset
