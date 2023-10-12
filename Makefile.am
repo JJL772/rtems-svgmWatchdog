@@ -45,7 +45,13 @@ EXTRA_PROGRAMS=$(HOSTPROG)
 exechostbin_PROGRAMS = @HOSTPROGRAM@
 wdclnt_SOURCES       = wdclnt.c rtemsBspWatchdog.h
 wdclnt_LDADD_solaris = -lrpcsvc -lnsl
-wdclnt_LDADD         = $(wdclnt_LDADD_$(build_os:solaris%=solaris))
+wdclnt_LDADD_linux = -ltirpc
+wdclnt_LDADD         = $(wdclnt_LDADD_$(build_os:solaris%=solaris)) $(wdclnt_LDADD_$(build_os:linux%=linux))
 
 wdclnt.$(OBJEXT): wdclnt.c rtemsBspWatchdog.h
+<<<<<<< Updated upstream
 	$(HOSTCC) -c -O2 -DPACKAGE_VERSION='"$(PACKAGE_VERSION)"' -o $@ -I. -I.. -I$(top_builddir) -I$(srcdir)/wrap $<
+=======
+	$(HOSTCC) -c -O2 -o $@ -I. -I.. -I$(top_builddir) -I$(srcdir)/wrap -I/usr/include/tirpc $<
+
+>>>>>>> Stashed changes
